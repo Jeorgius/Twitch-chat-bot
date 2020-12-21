@@ -1,0 +1,14 @@
+[
+    {
+        "command": "!weather",
+        "answer": "func_weather"
+    },
+    {
+        "command": "!add",
+        "answer": "func_add"
+    },
+    {
+        "command": "!delete",
+        "answer": "func_delete"
+    }
+]

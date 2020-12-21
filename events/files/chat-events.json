@@ -1,0 +1,18 @@
+[
+  {
+    "event": "Hello",
+    "answer": "Hi, @{author}!"
+  },
+  {
+    "event": "We made it",
+    "answer": "YEPP"
+  },
+  {
+    "event": "We did it",
+    "answer": "YEPP"
+  },
+  {
+    "event": "Nilfgaard",
+    "answer": "En Ard Feainn! SMOrc"
+  }
+]

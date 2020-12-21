@@ -1,0 +1,33 @@
+[
+  {
+    "game": "duel",
+    "actors": [
+      {
+        "name": "jeorgius_joke",
+        "accepted": true,
+        "hp": 100,
+        "shoots": false,
+        "accuracy": {
+          "head": 30,
+          "torso": 65,
+          "stomach": 65,
+          "legs": 45,
+          "hands": 45
+        }
+      },
+      {
+        "name": "raccoonthetraveler",
+        "accepted": true,
+        "hp": 100,
+        "shoots": true,
+        "accuracy": {
+          "head": 30,
+          "torso": 65,
+          "stomach": 65,
+          "legs": 45,
+          "hands": 45
+        }
+      }
+    ]
+  }
+]
