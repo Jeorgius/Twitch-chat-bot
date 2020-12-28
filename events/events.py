@@ -5,6 +5,7 @@ import os
 
 import simplejson
 
+from events.filepaths import context_paths
 from events.files.predictions import predictions
 
 current_path = os.path.dirname(__file__)
@@ -27,17 +28,17 @@ class Event(ABC):
 
 class PersonalEvent(Event):
     def get_answer(self) -> str:
-        with open(data_folder / "answers.json", "r", encoding="utf-8") as file:
+        with open(context_paths["answers"], "r", encoding="utf-8") as file:
             answers = simplejson.load(file)
         for answer in answers:
             if answer['question'].lower() in self.EVENT.lower():
-                return answers['answer']
+                return answer['answer']
         return ''
 
 
 class CommonEvent(Event):
     def get_answer(self) -> str:
-        with open(data_folder / "chat-events.json", "r", encoding="utf-8") as file:
+        with open(context_paths["chat-events"], "r", encoding="utf-8") as file:
             events = simplejson.load(file)
         for event in events:
             if event['event'].lower() in self.EVENT.lower():
@@ -47,7 +48,7 @@ class CommonEvent(Event):
 
 class ShowCommandInfo(Event):
     def get_answer(self) -> str:
-        with open(data_folder / "commands.json", "r", encoding="utf-8") as file:
+        with open(context_paths["commands"], "r", encoding="utf-8") as file:
             commands = simplejson.load(file)
         for command in commands:
             if command['name'].lower() in self.EVENT.lower():
@@ -57,7 +58,7 @@ class ShowCommandInfo(Event):
 
 class AvailableCommands(Event):
     def get_answer(self) -> str:
-        with open(data_folder / "commands.json", "r", encoding="utf-8") as file:
+        with open(context_paths["commands"], "r", encoding="utf-8") as file:
             commands = simplejson.load(file)
         answer = []
         for command in commands:
@@ -65,6 +66,7 @@ class AvailableCommands(Event):
         if len(answer) == 0:
             return 'No commands available'
         return 'Available commands: ' + ' '.join(answer)
+
 
 class EightBall(Event):
     def get_answer(self) -> str:

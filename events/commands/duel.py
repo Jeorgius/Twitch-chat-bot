@@ -1,6 +1,4 @@
 import os
-import simplejson
-import copy
 from pathlib import Path
 from random import randint
 
@@ -30,7 +28,7 @@ class DuelEvent(Game):
 
     def __init__(self, context) -> None:
         self.GAME_NAME = 'duel'
-        super().__init__(context)
+        super().__init__(context, self.GAME_NAME)
         self.execute_command(self.EVENT)
 
     def get_answer(self) -> str:
@@ -97,8 +95,7 @@ class DuelEvent(Game):
                 ]
             }
             self.SAVED_CONTEXT.append(duel)
-            with open(data_folder / "context.json", "w", encoding="utf-8") as file:
-                simplejson.dump(self.SAVED_CONTEXT, file, indent=4, sort_keys=True)
+            self.save_into_file()
         else:
             self.ANSWER = f'@{self.CONTEXT.author.name}, no such user with nickname {challenged}'
 
@@ -116,8 +113,7 @@ class DuelEvent(Game):
 
     def finish_challenge(self, old_game, commands):
         self.delete_game(old_game)
-        with open(data_folder / "context.json", "w", encoding="utf-8") as file:
-            simplejson.dump(self.SAVED_CONTEXT, file, indent=4, sort_keys=True)
+        self.save_into_file()
 
         last_command = commands[1].lower()
 
@@ -181,7 +177,8 @@ class DuelEvent(Game):
 
     def help(self, game):
         if game is None:
-            self.ANSWER = f"@{self.CONTEXT.author.name}, there's no duel for you."
+            self.ANSWER = f"@{self.CONTEXT.author.name}, there's no duel for you. " \
+                f"Type !duel @<opponent_nickname> to challenge the opponent to a duel, if they haven't been challenged"
             return
         player = self.get_player(game)
         opponent = self.get_opponent(game)
