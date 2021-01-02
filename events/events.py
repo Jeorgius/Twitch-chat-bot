@@ -53,7 +53,7 @@ class ShowCommandInfo(Event):
         for command in commands:
             if command['name'].lower() in self.EVENT.lower():
                 return command['value']
-        return ''
+        return CommonEvent(self.CONTEXT).get_answer()
 
 
 class AvailableCommands(Event):
